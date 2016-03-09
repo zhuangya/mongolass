@@ -1,0 +1,48 @@
+{
+  "name": "mongolass",
+  "version": "1.0.0",
+  "description": "Elegant MongoDB driver for Node.js.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
+  },
+  "keywords": [
+    "mongodb"
+  ],
+  "author": {
+    "name": "nswbmw",
+    "email": "nswbmw1992@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "nswbmw",
+      "email": "nswbmw1992@gmail.com"
+    },
+    {
+      "name": "wcp1231",
+      "email": "wcp1231@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "dependencies": {
+    "another-json-schema": "1.1.0",
+    "bluebird": "3.3.3",
+    "co": "4.6.0",
+    "debug": "2.2.0",
+    "inflected": "1.1.6",
+    "lodash": "4.2.0",
+    "mongodb": "2.1.7"
+  },
+  "devDependencies": {
+    "co-mocha": "^1.1.2",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mongolass/mongolass"
+  }
+}
