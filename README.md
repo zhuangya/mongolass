@@ -67,19 +67,19 @@ Mongolass retains the api of [node-mongodb-native](https://github.com/mongodb/no
 
 1. Elegant connection. eg:
 
-** mongodb **
+    **mongodb**
 
-```
-MongoClient.connect(..., function(err, db) {
-  db.listCollections()
-})
-```
-** Mongolass **
+    ```
+    MongoClient.connect(..., function(err, db) {
+      db.listCollections()
+    })
+    ```
+    **Mongolass**
 
-```
-mongolass.connect(...)
-mongolass.listCollections()
-```
+    ```
+    mongolass.connect(...)
+    mongolass.listCollections()
+    ```
 
 2. Optional schema, only used for parameter validation before insert document to mongodb.
 3. Awesome plugin system. eg: `beforeInsert`, `afterFind` and so on.
@@ -155,7 +155,7 @@ User.find().mw1().mw2().exec(function (err, res) {
 })
 ```
 
-** NOTE**: Different order of calling plugins will output different results.
+**NOTE**: Different order of calling plugins will output different results.
 
 ## Test
 
