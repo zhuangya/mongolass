@@ -1,11 +1,13 @@
 'use strict';
 
+const MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/test';
+
 let assert = require('assert');
 let Mongolass = require('..');
 let Db = Mongolass.Db;
 let Schema = Mongolass.Schema;
 let Model = Mongolass.Model;
-let mongolass = new Mongolass();
+let mongolass = new Mongolass(MONGODB);
 
 describe('index.js', function () {
   before(function* () {
@@ -29,15 +31,19 @@ describe('index.js', function () {
 
   it('disconnect', function* () {
     let mongolass2 = new Mongolass();
+    yield mongolass2.connect(MONGODB);
     mongolass2.disconnect();
     assert.deepEqual(mongolass2._db, null);
     assert.deepEqual(mongolass2._conn, null);
 
-    let mongolass3 = new Mongolass();
+    let mongolass3 = new Mongolass(MONGODB);
     yield mongolass3.connect();
     mongolass3.disconnect();
     assert.deepEqual(mongolass3._db, null);
     assert.deepEqual(mongolass3._conn, null);
+
+    let mongolass4 = new Mongolass(MONGODB);
+    mongolass4.disconnect();
   });
 
   it('schema', function* () {

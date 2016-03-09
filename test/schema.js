@@ -1,9 +1,11 @@
 'use strict';
 
+const MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/test';
+
 let assert = require('assert');
 let Mongolass = require('..');
 let Schema = Mongolass.Schema;
-let mongolass = new Mongolass('mongodb://localhost:27017/test');
+let mongolass = new Mongolass(MONGODB);
 
 let UserSchema = new Schema('User', {
   name: { type: 'string' },
