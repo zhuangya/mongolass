@@ -72,9 +72,8 @@ describe('index.js', function () {
     users = yield User.findOne().populate({ path: '_id', select: { _id: 0 }, model: 'User' });
     assert.deepEqual(users, { _id: { name: 'aaa', age: 2 }, name: 'aaa', age: 2 });
 
-    users = yield User.find().select({ name: 1 }).populate({ path: '_id', select: { _id: 0, age: 1 }, model: 'User' });
+    users = yield User.find().select({ name: 1 }).populate({ path: '_id', match: { name: 'bbb' }, select: { _id: 0, age: 1 }, model: 'User' });
     assert.deepEqual(users, [
-      { _id: { age: 2 }, name: 'aaa' },
       { _id: { age: 1 }, name: 'bbb' }
     ]);
     users = yield User.findOne().select({ name: 1 }).populate({ path: '_id', select: { _id: 0, age: 1 }, model: 'User' });
