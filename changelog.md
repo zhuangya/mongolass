@@ -1,3 +1,7 @@
+## 1.0.3/2016-03-14
+
+- use [dot-prop](https://github.com/sindresorhus/dot-prop) for deep populate
+
 ## 1.0.2/2016-03-14
 
 - add `.match` to populate & fix populate path bug

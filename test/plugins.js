@@ -2,6 +2,7 @@
 
 const MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/test';
 
+let _ = require('lodash');
 let assert = require('assert');
 let Mongolass = require('..');
 let mongolass = new Mongolass(MONGODB);
@@ -84,5 +85,23 @@ describe('index.js', function () {
     } catch(e) {
       assert.ok(e.message.match(/^Not found _id: [0-9a-z]{24} in User2$/));
     }
+
+    //deepPopulate
+    users = yield User
+      .find()
+      .select({ name: 1 })
+      .populate({ path: '_id', model: 'User' })
+      .populate({ path: '_id._id', model: 'User' })
+      .exec()
+      .then(results => {
+        return _.map(results, result => {
+          delete result._id._id._id;
+          return result;
+        });
+      });
+    assert.deepEqual(users, [
+      { _id: { _id: { name: 'aaa', age: 2 }, name: 'aaa', age: 2 }, name: 'aaa' },
+      { _id: { _id: { name: 'bbb', age: 1 }, name: 'bbb', age: 1 }, name: 'bbb' }
+    ]);
   });
 });
