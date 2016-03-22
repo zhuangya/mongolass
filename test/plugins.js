@@ -91,7 +91,7 @@ describe('index.js', function () {
       .find()
       .select({ name: 1 })
       .populate({ path: '_id', model: 'User' })
-      .populate({ path: '_id._id', model: 'User' })
+      .populate({ path: '_id._id', model: User })
       .exec()
       .then(results => {
         return _.map(results, result => {

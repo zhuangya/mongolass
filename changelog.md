@@ -1,3 +1,7 @@
+## 1.0.4/2016-03-22
+
+- update `.populate` can pass model instead of modelName
+
 ## 1.0.3/2016-03-14
 
 - use [dot-prop](https://github.com/sindresorhus/dot-prop) for deep populate
