@@ -1,3 +1,11 @@
+## 1.2.0/2016-08-25
+
+- split `mongolass-plugin-populate` & update deps
+
+## 1.1.0/2016-04-28
+
+- add `Mongolass.Types`
+
 ## 1.0.4/2016-03-22
 
 - update `.populate` can pass model instead of modelName
