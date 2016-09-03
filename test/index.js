@@ -48,11 +48,14 @@ describe('index.js', function () {
 
   it('schema', function* () {
     let UserSchema;
+    let error;
     try {
       UserSchema = mongolass.schema('User', 'aaa');
     } catch(e) {
-      assert.deepEqual(e.message, 'Wrong schemaJSON for schema: User');
+      error = e;
     }
+    assert.deepEqual(error.message, 'Wrong schemaJSON for schema: User');
+
     UserSchema = mongolass.schema('User', {
       name: { type: 'string' },
       age: { type: 'number', range: [0, 100] }
@@ -61,13 +64,13 @@ describe('index.js', function () {
     assert.ok(UserSchema === mongolass.schema('User'));
     try {
       UserSchema = mongolass.schema('User2');
-    } catch(e) {
-      assert.deepEqual(e.message, 'No schema: User2');
-    }
+    } catch(e) { error = e; }
+    assert.deepEqual(error.message, 'No schema: User2');
   });
 
   it('model', function* () {
     let User;
+    let error;
     let UserSchema = mongolass.schema('User', {
       name: { type: 'string' },
       age: { type: 'number', range: [0, 100] }
@@ -75,8 +78,9 @@ describe('index.js', function () {
     try {
       User = mongolass.model('User', 'aaa');
     } catch(e) {
-      assert.deepEqual(e.message, 'Wrong schema for model: User');
+      error = e;
     }
+    assert.deepEqual(error.message, 'Wrong schema for model: User');
 
     User = mongolass.model('User', UserSchema);
     assert.ok(User instanceof Model);
@@ -84,6 +88,7 @@ describe('index.js', function () {
   });
 
   it('plugin', function* () {
+    let error;
     let User = mongolass.model('User');
     try {
       mongolass.plugin('filter', function (result, key) {
@@ -92,8 +97,9 @@ describe('index.js', function () {
         });
       });
     } catch(e) {
-      assert.deepEqual(e.message, 'Wrong plugin name or hooks');
+      error = e;
     }
+    assert.deepEqual(error.message, 'Wrong plugin name or hooks');
 
     mongolass.plugin('filter', {
       afterFind: function (result, key) {

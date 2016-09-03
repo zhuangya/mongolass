@@ -38,6 +38,7 @@ describe('index.js', function () {
   });
 
   it('plugin', function* () {
+    let error;
     let User = mongolass.model('User');
     try {
       User.plugin('filter', function (result, key) {
@@ -46,8 +47,9 @@ describe('index.js', function () {
         });
       });
     } catch(e) {
-      assert.deepEqual(e.message, 'Wrong plugin name or hooks');
+      error = e;
     }
+    assert.deepEqual(error.message, 'Wrong plugin name or hooks');
 
     User.plugin('descSortAndToUpper', {
       beforeFind: function* (key) {

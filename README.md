@@ -22,8 +22,8 @@ Just like mongoose:
 'use strict';
 
 let Mongolass = require('mongolass');
-let mongolass = new Mongolass();// let mongolass = new Mongolass('mongodb://localhost:27017/test');
-mongolass.connect('mongodb://localhost:27017/test');
+let mongolass = new Mongolass();
+mongolass.connect('mongodb://localhost:27017/test');// let mongolass = new Mongolass('mongodb://localhost:27017/test');
 
 let User = mongolass.model('User');
 
@@ -43,8 +43,7 @@ or use optional schema:
 
 let Mongolass = require('mongolass');
 let Schema = Mongolass.Schema;
-let mongolass = new Mongolass();
-mongolass.connect('mongodb://localhost:27017/test');
+let mongolass = new Mongolass('mongodb://localhost:27017/test');
 
 let UserSchema = new Schema('UserSchema', {
   name: { type: 'string' },
@@ -57,6 +56,43 @@ User
   .exec()
   .then(console.log)
   .catch(console.error);
+/*
+{ [Error: ($.age: "wrong age") ✖ (type: number)]
+  validator: 'type',
+  actual: 'wrong age',
+  expected: { type: 'number' },
+  path: '$.age',
+  schema: 'UserSchema',
+  model: 'User',
+  plugin: 'schema',
+  type: 'beforeInsertOne',
+  args: [] }
+ */
+```
+
+ObjectId schema:
+
+```
+'use strict';
+
+let Mongolass = require('mongolass');
+let Schema = Mongolass.Schema;
+let mongolass = new Mongolass('mongodb://localhost:27017/test');
+
+let PostSchema = new Schema('PostSchema', {
+  author: { type: Mongolass.Types.ObjectId },
+});
+let Post = mongolass.model('Post', PostSchema);
+
+Post.insertOne({ author: '111111111111111111111111' })
+  .then(function () {
+    return Post.find({ author: '111111111111111111111111' });
+  })
+  .then(console.log);
+/*
+[ { _id: 57caed24ecda6ffb15962591,
+    author: 111111111111111111111111 } ]
+ */
 ```
 
 <!-- ## Why i hate Mongoose -->
@@ -81,15 +117,15 @@ Mongolass retains the api of [node-mongodb-native](https://github.com/mongodb/no
     mongolass.listCollections()
     ```
 
-2. Optional schema, only used for parameter validation before insert document to mongodb.
-3. Awesome plugin system. eg: `beforeInsert`, `afterFind` and so on.
-
+2. Optional schema, used for validating and formatting parameters before query or update.
+3. Awesome plugin system. eg: `beforeInsert`, `afterFind` and so on. You can define custom plugins.
+4. Detailed error information.
 
 ## Schema
 
 see [another-json-schema](https://github.com/nswbmw/another-json-schema).
 
-## Plugins
+## Built-in plugins
 
 Mongolass has some built-in plugins, only for `find` and `findOne`.
 
@@ -156,6 +192,8 @@ User.find().mw1().mw2().exec(function (err, res) {
 ```
 
 **NOTE**: Different order of calling plugins will output different results.
+
+see [mongolass-plugin-populate](https://github.com/mongolass/mongolass-plugin-populate).
 
 ## Test
 

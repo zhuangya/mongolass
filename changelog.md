@@ -1,3 +1,10 @@
+## 2.0.0/2016-09-03
+
+- update to `another-json-schema@2.1.0`
+- now format `query` & `update` filter if schema exist
+- more detailed error information
+- `Mongolass.Types` breaking change, now `throw` error && `return` formatted value
+
 ## 1.2.0/2016-08-25
 
 - split `mongolass-plugin-populate` & update deps

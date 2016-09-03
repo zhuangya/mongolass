@@ -24,11 +24,13 @@ describe('Types.js', function () {
   });
 
   it('ObjectId wrong', function* () {
+    let error;
     try {
       yield User.insertOne({ uid: 'haha' });
     } catch(e) {
-      assert.deepEqual(e.message, '($.uid: "haha") ✖ (type: ObjectId)');
+      error = e;
     }
+    assert.deepEqual(error.message, '($.uid: "haha") ✖ (type: ObjectId)');
   });
 
   it('ObjectId', function* () {
