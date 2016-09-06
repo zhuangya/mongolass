@@ -60,7 +60,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeBulkWrite',
       args: []
     });
@@ -77,7 +77,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeBulkWrite',
       args: []
     });
@@ -94,7 +94,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeBulkWrite',
       args: []
     });
@@ -132,7 +132,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeBulkWrite',
       args: []
     });
@@ -505,7 +505,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeFindAndModify',
       args: []
     });
@@ -565,7 +565,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeFindOneAndReplace',
       args: []
     });
@@ -585,7 +585,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeFindOneAndUpdate',
       args: []
     });
@@ -605,7 +605,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeInsert',
       args: []
     });
@@ -625,7 +625,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeInsertOne',
       args: []
     });
@@ -645,7 +645,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeInsertMany',
       args: []
     });
@@ -681,7 +681,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeReplaceOne',
       args: []
     });
@@ -701,7 +701,7 @@ describe('schema.js', function () {
       path: '$.name',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeSave',
       args: []
     });
@@ -726,7 +726,7 @@ describe('schema.js', function () {
         path: '$.refe',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -750,7 +750,7 @@ describe('schema.js', function () {
         path: '$.refe',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -778,7 +778,7 @@ describe('schema.js', function () {
         path: '$.refe',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -798,7 +798,7 @@ describe('schema.js', function () {
         path: '$.posts[].comments[]',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -832,7 +832,7 @@ describe('schema.js', function () {
         path: '$.posts[].comments[]',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -935,7 +935,7 @@ describe('schema.js', function () {
         path: '$.age',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -952,7 +952,7 @@ describe('schema.js', function () {
         path: '$.age',
         schema: 'User',
         model: 'User',
-        plugin: 'schema',
+        plugin: 'MongolassSchema',
         type: 'beforeUpdate',
         args: []
       });
@@ -973,7 +973,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeUpdateOne',
       args: []
     });
@@ -993,7 +993,7 @@ describe('schema.js', function () {
       path: '$.age',
       schema: 'User',
       model: 'User',
-      plugin: 'schema',
+      plugin: 'MongolassSchema',
       type: 'beforeUpdateMany',
       args: []
     });

@@ -21,12 +21,20 @@ describe('index.js', function () {
   });
 
   it('connect', function* () {
+    let error;
     let db = yield mongolass.connect();
     assert.ok(db instanceof Db);
 
     let db2 = yield mongolass.connect();
     assert.ok(db instanceof Db);
     assert.ok(db === db2);
+
+    try {
+      yield mongolass.connect('mongodb://localhost:27018/test');
+    } catch (e) {
+      error = e;
+    }
+    assert.deepEqual(error.message, 'Already connected to mongodb://localhost:27017/test, please create another connection.');
   });
 
   it('disconnect', function* () {

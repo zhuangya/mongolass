@@ -64,7 +64,7 @@ User
   path: '$.age',
   schema: 'UserSchema',
   model: 'User',
-  plugin: 'schema',
+  plugin: 'MongolassSchema',
   type: 'beforeInsertOne',
   args: [] }
  */

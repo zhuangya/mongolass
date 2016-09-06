@@ -1,3 +1,8 @@
+## 2.0.1/2016-09-06
+
+- change built-in schema plugin's name `schema` -> `MongolassSchema`
+- repeatedly callling `mongolass.connect` will throw error
+
 ## 2.0.0/2016-09-03
 
 - update to `another-json-schema@2.1.0`
