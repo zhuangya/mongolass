@@ -19,11 +19,11 @@ describe('index.js', function () {
     mongolass.disconnect();
   });
 
-  it('connect', function* () {
-    let coll = yield mongolass.model('User').connect();
+  it('_connect', function* () {
+    let coll = yield mongolass.model('User')._connect();
     assert.ok(coll instanceof Collection);
 
-    let coll2 = yield mongolass.model('User').connect();
+    let coll2 = yield mongolass.model('User')._connect();
     assert.ok(coll2 instanceof Collection);
     assert.ok(coll === coll2);
   });

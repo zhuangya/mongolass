@@ -1,3 +1,7 @@
+## 2.0.2/2016-09-07
+
+- change model function `connect` -> `_connect` 
+
 ## 2.0.1/2016-09-06
 
 - change built-in schema plugin's name `schema` -> `MongolassSchema`
