@@ -2,13 +2,13 @@
 
 const MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/test';
 
-let assert = require('assert');
-let Mongolass = require('..');
-let Schema = Mongolass.Schema;
-let ObjectId = Mongolass.ObjectId;
-let mongolass = new Mongolass(MONGODB);
+const assert = require('assert');
+const Mongolass = require('..');
+const Schema = Mongolass.Schema;
+const ObjectId = Mongolass.ObjectId;
+const mongolass = new Mongolass(MONGODB);
 
-let UserSchema = new Schema('User', {
+const UserSchema = new Schema('User', {
   name: { type: 'string' },
   age: { type: 'number', range: [0, 100] },
   refe: { type: Mongolass.Types.ObjectId },
@@ -17,7 +17,7 @@ let UserSchema = new Schema('User', {
     comments: [{ type: Mongolass.Types.ObjectId }]
   }]
 });
-let User = mongolass.model('User', UserSchema);
+const User = mongolass.model('User', UserSchema);
 
 describe('schema.js', function () {
   before(function* () {

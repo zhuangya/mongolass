@@ -2,11 +2,11 @@
 
 const MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/test';
 
-let assert = require('assert');
-let Mongolass = require('..');
-let mongolass = new Mongolass(MONGODB);
+const assert = require('assert');
+const Mongolass = require('..');
+const mongolass = new Mongolass(MONGODB);
 
-let User = mongolass.model('User');
+const User = mongolass.model('User');
 User.plugin('oops', {
   afterFind: function () {
     throw new Error('oops');

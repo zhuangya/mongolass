@@ -21,11 +21,11 @@ Just like mongoose:
 ```
 'use strict';
 
-let Mongolass = require('mongolass');
-let mongolass = new Mongolass();
-mongolass.connect('mongodb://localhost:27017/test');// let mongolass = new Mongolass('mongodb://localhost:27017/test');
+const Mongolass = require('mongolass');
+const mongolass = new Mongolass();
+mongolass.connect('mongodb://localhost:27017/test');// const mongolass = new Mongolass('mongodb://localhost:27017/test');
 
-let User = mongolass.model('User');
+const User = mongolass.model('User');
 
 User
   .find()
@@ -41,15 +41,15 @@ or use optional schema:
 ```
 'use strict';
 
-let Mongolass = require('mongolass');
-let Schema = Mongolass.Schema;
-let mongolass = new Mongolass('mongodb://localhost:27017/test');
+const Mongolass = require('mongolass');
+const Schema = Mongolass.Schema;
+const mongolass = new Mongolass('mongodb://localhost:27017/test');
 
-let UserSchema = new Schema('UserSchema', {
+const UserSchema = new Schema('UserSchema', {
   name: { type: 'string' },
   age: { type: 'number' }
 });
-let User = mongolass.model('User', UserSchema);
+const User = mongolass.model('User', UserSchema);
 
 User
   .insertOne({ name: 'nswbmw', age: 'wrong age' })
@@ -75,14 +75,14 @@ ObjectId schema:
 ```
 'use strict';
 
-let Mongolass = require('mongolass');
-let Schema = Mongolass.Schema;
-let mongolass = new Mongolass('mongodb://localhost:27017/test');
+const Mongolass = require('mongolass');
+const Schema = Mongolass.Schema;
+const mongolass = new Mongolass('mongodb://localhost:27017/test');
 
-let PostSchema = new Schema('PostSchema', {
+const PostSchema = new Schema('PostSchema', {
   author: { type: Mongolass.Types.ObjectId },
 });
-let Post = mongolass.model('Post', PostSchema);
+const Post = mongolass.model('Post', PostSchema);
 
 Post.insertOne({ author: '111111111111111111111111' })
   .then(function () {

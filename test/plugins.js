@@ -2,12 +2,12 @@
 
 const MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/test';
 
-let _ = require('lodash');
-let assert = require('assert');
-let Mongolass = require('..');
-let mongolass = new Mongolass(MONGODB);
+const _ = require('lodash');
+const assert = require('assert');
+const Mongolass = require('..');
+const mongolass = new Mongolass(MONGODB);
 
-let User = mongolass.model('User');
+const User = mongolass.model('User');
 
 describe('index.js', function () {
   before(function* () {
