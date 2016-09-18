@@ -78,6 +78,7 @@ describe('index.js', function () {
 
   it('model', function* () {
     let User;
+    let User2;
     let error;
     let UserSchema = mongolass.schema('User', {
       name: { type: 'string' },
@@ -88,11 +89,21 @@ describe('index.js', function () {
     } catch(e) {
       error = e;
     }
-    assert.deepEqual(error.message, 'Wrong schema for model: User');
+    assert.deepEqual(error.message, 'Wrong schemaJSON for schema: UserSchema');
 
     User = mongolass.model('User', UserSchema);
     assert.ok(User instanceof Model);
     assert.ok(User === mongolass.model('User'));
+    assert.ok(User._schema._name === 'User');
+
+    User2 = mongolass.model('User', {
+      name: { type: 'string' },
+      age: { type: 'number', range: [0, 100] }
+    });
+    assert.ok(User !== User2);
+    assert.ok(User2 instanceof Model);
+    assert.ok(User2 === mongolass.model('User'));
+    assert.ok(User2._schema._name === 'UserSchema');
   });
 
   it('plugin', function* () {

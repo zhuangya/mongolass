@@ -51,6 +51,15 @@ const UserSchema = new Schema('UserSchema', {
 });
 const User = mongolass.model('User', UserSchema);
 
+/*
+equal to:
+const User = mongolass.model('User', {
+  name: { type: 'string' },
+  age: { type: 'number' }
+});
+will create inner schema named `UserSchema`.
+ */
+
 User
   .insertOne({ name: 'nswbmw', age: 'wrong age' })
   .exec()
@@ -79,10 +88,9 @@ const Mongolass = require('mongolass');
 const Schema = Mongolass.Schema;
 const mongolass = new Mongolass('mongodb://localhost:27017/test');
 
-const PostSchema = new Schema('PostSchema', {
+const Post = mongolass.model('Post', {
   author: { type: Mongolass.Types.ObjectId },
 });
-const Post = mongolass.model('Post', PostSchema);
 
 Post.insertOne({ author: '111111111111111111111111' })
   .then(function () {

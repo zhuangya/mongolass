@@ -1,3 +1,7 @@
+## 2.1.0/2016-09-18
+
+- `.model()` support raw object as schema now, inner schema named `${model._name}Schema`
+
 ## 2.0.2/2016-09-07
 
 - change model function `connect` -> `_connect` 
