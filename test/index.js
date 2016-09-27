@@ -34,7 +34,7 @@ describe('index.js', function () {
     } catch (e) {
       error = e;
     }
-    assert.deepEqual(error.message, 'Already connected to mongodb://localhost:27017/test, please create another connection.');
+    assert.deepEqual(error.message, 'Already connected to ' + MONGODB + ', please create another connection.');
   });
 
   it('disconnect', function* () {
