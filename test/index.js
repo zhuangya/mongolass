@@ -68,8 +68,17 @@ describe('index.js', function () {
       name: { type: 'string' },
       age: { type: 'number', range: [0, 100] }
     });
+    assert.ok(UserSchema._schema._id);
     assert.ok(UserSchema instanceof Schema);
     assert.ok(UserSchema === mongolass.schema('User'));
+
+    UserSchema = new Schema('User', {
+      name: { type: 'string' },
+      age: { type: 'number', range: [0, 100] }
+    });
+    assert.ok(UserSchema._schema._id);
+    assert.ok(UserSchema instanceof Schema);
+
     try {
       UserSchema = mongolass.schema('User2');
     } catch(e) { error = e; }

@@ -1,3 +1,7 @@
+## 2.2.0/2016-10-04
+
+- add default `_id` schema when register a new schema
+
 ## 2.1.0/2016-09-18
 
 - `.model()` support raw object as schema now, inner schema named `${model._name}Schema`
