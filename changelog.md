@@ -1,3 +1,9 @@
+## 2.3.0/2016-10-11
+
+- model function cannot be modified now
+- add model function name
+- upgrade error stack
+
 ## 2.2.0/2016-10-04
 
 - add default `_id` schema when register a new schema
