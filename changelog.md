@@ -1,3 +1,7 @@
+## 2.3.1/2016-10-23
+
+- print error when connect mongodb failed
+
 ## 2.3.0/2016-10-11
 
 - model function cannot be modified now
