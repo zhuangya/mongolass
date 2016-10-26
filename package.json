@@ -7,7 +7,21 @@
     "test": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "keywords": [
-    "mongodb"
+    "mongo",
+    "mongodb",
+    "mongoose",
+    "schema",
+    "model",
+    "query",
+    "odm",
+    "orm",
+    "nosql",
+    "data",
+    "datastore",
+    "database",
+    "db",
+    "collection",
+    "document"
   ],
   "author": {
     "name": "nswbmw",
