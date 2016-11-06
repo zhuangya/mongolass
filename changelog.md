@@ -1,3 +1,13 @@
+## 2.3.2/2016-11-06
+
+- update deps:
+```
+lodash     4.15.0  →  4.16.6
+mongodb     2.2.9  →  2.2.11
+validator   5.6.0  →   6.1.0
+mocha      ^3.0.2  →  ^3.1.2
+```
+
 ## 2.3.1/2016-10-23
 
 - print error when connect mongodb failed
