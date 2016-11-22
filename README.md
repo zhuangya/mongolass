@@ -120,6 +120,8 @@ Post.insertOne({ author: '111111111111111111111111' })
 <!-- ## Why i don't like node-mongodb-native -->
 ## What about Mongolass
 
+[为什么使用 mongolass?](https://github.com/nswbmw/N-blog/blob/master/book/4.6%20%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93.md#461-为什么使用-mongolass)
+
 Mongolass retains the api of [node-mongodb-native](https://github.com/mongodb/node-mongodb-native), and draws useful features of mongoose. Compared with node-mongodb-native, Mongolass has following three features:
 
 1. Elegant connection. eg:
