@@ -1,3 +1,14 @@
+## 2.3.3/2016-12-10
+
+- update readme
+- update deps:
+```
+debug       2.2.0  →   2.3.3
+lodash     4.16.6  →  4.17.2
+mongodb    2.2.11  →  2.2.14
+validator   6.1.0  →   6.2.0
+```
+
 ## 2.3.2/2016-11-06
 
 - update deps:

@@ -1,6 +1,6 @@
 {
   "name": "mongolass",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Elegant MongoDB driver for Node.js.",
   "main": "lib/index.js",
   "scripts": {
@@ -41,17 +41,17 @@
     "another-json-schema": "2.1.0",
     "bluebird": "3.4.6",
     "co": "4.6.0",
-    "debug": "2.2.0",
+    "debug": "2.3.3",
     "inflected": "1.1.7",
-    "lodash": "4.16.6",
-    "mongodb": "2.2.11",
+    "lodash": "4.17.2",
+    "mongodb": "2.2.14",
     "mongolass-plugin-populate": "*",
-    "validator": "6.1.0"
+    "validator": "6.2.0"
   },
   "devDependencies": {
     "co-mocha": "^1.1.3",
     "istanbul": "^0.4.5",
-    "mocha": "^3.1.2"
+    "mocha": "^3.2.0"
   },
   "repository": {
     "type": "git",
