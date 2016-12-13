@@ -189,7 +189,103 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
 
 see [another-json-schema](https://github.com/nswbmw/another-json-schema).
 
-## Built-in plugins
+## Plugins
+
+```
+mongolass.plugin(pluginName, hooks);// register global plugin
+User.plugin(pluginName, hooks);// register model plugin
+```
+
+example:
+
+```
+const co = require('co');
+const moment = require('moment');
+const Mongolass = require('mongolass');
+const mongolass = new Mongolass('mongodb://localhost:27017/test');
+const User = mongolass.model('User');
+
+mongolass.plugin('addCreatedAt', {
+  beforeInsert: function (format) {
+    console.log('beforeInsert', this._op, this._args, format);
+    // beforeInsert insert [ { firstname: 'san', lastname: 'zhang' } ] YYYY-MM-DD
+    this._args[0].createdAt = moment().format(format);
+  }
+});
+
+User.plugin('addFullname', {
+  afterFindOne: function* (user, opt) {
+    console.log('afterFindOne', this._op, this._args, opt);
+    // afterFindOne findOne [] { sep: '-' }
+    if (!user) return user;
+    user.fullname = user.firstname + opt.sep + user.lastname;
+    return user;
+  },
+  afterFind: async function (users, opt) {
+    console.log('afterFind', this._op, this._args, opt);
+    // afterFind find [ { firstname: 'san' } ] { sep: ' ' }
+    if (!users.length) return users;
+    return users.map(user => {
+      user.fullname = user.firstname + opt.sep + user.lastname;
+      return user;
+    });
+  }
+});
+
+co(function* () {
+  yield User.insert({ firstname: 'san', lastname: 'zhang' }).addCreatedAt('YYYY-MM-DD');// when use yield, .exec() is omissible.
+  console.log(yield User.findOne().addFullname({ sep: '-' }));
+  // { _id: 5850186544c3b82d23a82e45,
+  //   firstname: 'san',
+  //   lastname: 'zhang',
+  //   createdAt: '2016-12-13',
+  //   fullname: 'san-zhang' }
+  console.log(yield User.find({ firstname: 'san' }).addFullname({ sep: ' ' }));
+  // [ { _id: 5850186544c3b82d23a82e45,
+  //     firstname: 'san',
+  //     lastname: 'zhang',
+  //     createdAt: '2016-12-13',
+  //     fullname: 'san zhang' } ]
+}).catch(console.error.bind(console));
+```
+
+**NOTE**: Different order of calling plugins will output different results. The priority of Model's plugins is greater than global's.
+
+example:
+
+```
+const co = require('co');
+const Mongolass = require('mongolass');
+const mongolass = new Mongolass('mongodb://localhost:27017/test');
+const User = mongolass.model('User');
+
+User.plugin('add2', {
+  afterFindOne: function* (user) {
+    if (!user) return user;
+    user.name = `${user.name}2`;
+    return user;
+  }
+});
+User.plugin('add3', {
+  afterFindOne: function* (user) {
+    if (!user) return user;
+    user.name = `${user.name}3`;
+    return user;
+  }
+});
+
+co(function* () {
+  yield User.insert({ name: '1' });
+  console.log(yield User.findOne().add2().add3());
+  // { _id: 58501a8a7cc264af259ca691, name: '123' }
+  console.log(yield User.findOne().add3().add2());
+  // { _id: 58501a8a7cc264af259ca691, name: '132' }
+}).catch(console.error.bind(console));
+```
+
+see [mongolass-plugin-populate](https://github.com/mongolass/mongolass-plugin-populate).
+
+### Built-in plugins
 
 Mongolass has some built-in plugins, only for `find` and `findOne`.
 
@@ -220,44 +316,25 @@ Mongolass has some built-in plugins, only for `find` and `findOne`.
 - [partial](http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne)
 - [maxTimeMS](http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne)
 
-#### Register plugin
+example:
 
 ```
-mongolass.plugin(pluginName, hooks);// register global plugin
-User.plugin(pluginName, hooks);// register model plugin
+const co = require('co');
+const Mongolass = require('mongolass');
+const mongolass = new Mongolass('mongodb://localhost:27017/test');
+const User = mongolass.model('User');
+
+co(function* () {
+  yield User.insert({ name: '1' });
+  yield User.insert({ name: '2' });
+  const result = yield User
+    .find()
+    .skip(1)
+    .limit(1);
+  console.log(result);
+  // [ { _id: 58501c1281ea915a2760a2ee, name: '2' } ]
+}).catch(console.error.bind(console));
 ```
-
-examples:
-
-```
-User.plugin('mw2', {
-  beforeInsert: function (...args) {
-  },
-  afterFind: function* (result, ...args) {
-    console.log(result, args);
-    ...
-  }
-});
-
-mongolass.plugin('mw1', {
-  beforeFind: function (...args) {
-    console.log(ctx._op);
-    console.log(ctx._args);
-    console.log(args);
-    ...
-  }
-});
-
-yield User.find().mw1().mw2().exec()// equal: yield User.find().mw1().mw2()
-User.find().mw2().mw1().exec().then(...).catch(...)
-User.find().mw1().mw2().exec(function (err, res) {
-  console.log(err, res)
-})
-```
-
-**NOTE**: Different order of calling plugins will output different results. The priority of Model's plugins is greater than global's.
-
-see [mongolass-plugin-populate](https://github.com/mongolass/mongolass-plugin-populate).
 
 ## Test
 
