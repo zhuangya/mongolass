@@ -118,7 +118,9 @@ Post.insertOne({ author: '111111111111111111111111' })
 
 ## Mongolass vs Mongoose
 
-中文：[为什么使用 Mongolass?](https://github.com/nswbmw/N-blog/blob/master/book/4.6%20%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93.md#461-为什么使用-mongolass)
+知乎：[从零开始写一个 Node.js 的 MongoDB 驱动库](https://zhuanlan.zhihu.com/p/24308524)
+
+----------------------------
 
 I've been using Mongoose for years, it's great but complex sucks, so i wrote Mongolass. Mongolass is not simply mimicking Mongoose, but rather draw on the advantages of mongoose redesigned the architecture. Mongolass has some exciting features different from Mongoose:
 
