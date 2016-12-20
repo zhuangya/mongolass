@@ -1,3 +1,8 @@
+## 2.4.1/2016-12-20
+
+- tweak error stack
+- update readme
+
 ## 2.4.0/2016-12-20
 
 - update error stack
