@@ -1,3 +1,8 @@
+## 2.4.0/2016-12-20
+
+- update error stack
+- fix tests
+
 ## 2.3.4/2016-12-18
 
 - update readme

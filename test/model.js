@@ -8,7 +8,7 @@ const Collection = Mongolass.Collection;
 const Model = Mongolass.Model;
 const mongolass = new Mongolass(MONGODB);
 
-describe('index.js', function () {
+describe('model.js', function () {
   before(function* () {
     yield mongolass.model('User').insertOne({ name: 'aaa', age: 2 });
     yield mongolass.model('User').insertOne({ name: 'bbb', age: 1 });

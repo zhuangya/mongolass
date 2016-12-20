@@ -37,6 +37,24 @@ describe('index.js', function () {
     assert.deepEqual(error.message, 'Already connected to ' + MONGODB + ', please create another connection.');
   });
 
+  it('connect failed', function* () {
+    let error;
+    const mongolass2 = new Mongolass('mongodb://localhost:27018/test');
+    try {
+      yield mongolass2.model('User').find();
+    } catch (e) {
+      error = e;
+    }
+    assert.deepEqual(error, {
+      name: 'MongoError',
+      message: 'failed to connect to server [localhost:27018] on first connect',
+      op: 'find',
+      args: [],
+      model: 'User',
+      schema: null
+    });
+  });
+
   it('disconnect', function* () {
     let mongolass2 = new Mongolass();
     yield mongolass2.connect(MONGODB);

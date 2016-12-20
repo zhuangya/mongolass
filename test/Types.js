@@ -34,7 +34,7 @@ describe('Types.js', function () {
   });
 
   it('ObjectId', function* () {
-    let user = yield User.findOne();
+    let user = yield User.findOne({ uid: '5721bb5abec50ab84b8eb109' });
     assert.ok('object' === typeof user._id);
     assert.deepEqual(user.uid.toString(), '5721bb5abec50ab84b8eb109');
   });

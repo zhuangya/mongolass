@@ -9,7 +9,7 @@ const mongolass = new Mongolass(MONGODB);
 
 const User = mongolass.model('User');
 
-describe('index.js', function () {
+describe('plugins.js', function () {
   before(function* () {
     yield mongolass.model('User').insertOne({ name: 'aaa', age: 2 });
     yield mongolass.model('User').insertOne({ name: 'bbb', age: 1 });
