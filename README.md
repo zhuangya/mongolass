@@ -99,7 +99,7 @@ Error: ($.age: "wrong age") ✖ (type: number)
 ----- Mongolass error stack -----
 Error
     at Model.insertOne (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:108:16)
-    at Object.<anonymous> (/Users/nswbmw/Desktop/mongolass-demo/app.js:77:4)
+    at Object.<anonymous> (/Users/nswbmw/Desktop/mongolass-demo/app.js:23:4)
     at Module._compile (module.js:409:26)
     at Object.Module._extensions..js (module.js:416:10)
     at Module.load (module.js:343:32)
@@ -211,7 +211,7 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
   ----- Mongolass error stack -----
   Error
       at Model.insertOne (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:108:16)
-      at Object.<anonymous> (/Users/nswbmw/Desktop/mongolass-demo/app.js:77:4)
+      at Object.<anonymous> (/Users/nswbmw/Desktop/mongolass-demo/app.js:23:4)
       at Module._compile (module.js:409:26)
       at Object.Module._extensions..js (module.js:416:10)
       at Module.load (module.js:343:32)
