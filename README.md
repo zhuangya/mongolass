@@ -121,7 +121,7 @@ const mongolass = new Mongolass('mongodb://localhost:27017/test');
 
 const Post = mongolass.model('Post', {
   author: { type: Mongolass.Types.ObjectId }
-});
+}, { collName: 'post' });
 
 Post.insertOne({ author: '111111111111111111111111' })
   .then(function () {
@@ -133,6 +133,7 @@ Post.insertOne({ author: '111111111111111111111111' })
     author: 111111111111111111111111 } ]
  */
 ```
+**NB:** You can pass `collName` as collection name.
 
 ## Mongolass vs Mongoose
 

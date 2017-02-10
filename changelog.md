@@ -1,3 +1,7 @@
+## 2.4.2/2017-02-10
+
+- add `collName` opt
+
 ## 2.4.1/2016-12-20
 
 - tweak error stack
