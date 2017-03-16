@@ -1,3 +1,11 @@
+## 2.4.4/2017-03-16
+
+- fix: no schema name insert `_id` only
+
+## 2.4.3/2017-03-13
+
+- update deps
+
 ## 2.4.2/2017-02-10
 
 - add `collName` opt

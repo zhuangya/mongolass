@@ -75,6 +75,14 @@ describe('index.js', function () {
   it('schema', function* () {
     let UserSchema;
     let error;
+
+    try {
+      UserSchema = mongolass.schema({ name: 'string' });
+    } catch(e) {
+      error = e;
+    }
+    assert.deepEqual(error.message, 'Missing schema name');
+
     try {
       UserSchema = mongolass.schema('User', 'aaa');
     } catch(e) {
@@ -111,6 +119,14 @@ describe('index.js', function () {
       name: { type: 'string' },
       age: { type: 'number', range: [0, 100] }
     });
+
+    try {
+      User = mongolass.model(UserSchema);
+    } catch(e) {
+      error = e;
+    }
+    assert.deepEqual(error.message, 'Missing model name');
+
     try {
       User = mongolass.model('User', 'aaa');
     } catch(e) {

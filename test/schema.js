@@ -46,6 +46,24 @@ describe('schema.js', function () {
     mongolass.disconnect();
   });
 
+  it('No schema name', function* () {
+    let error;
+    try {
+      new Schema({
+        name: { type: 'string' },
+        age: { type: 'number', range: [0, 100] },
+        refe: { type: Mongolass.Types.ObjectId },
+        posts: [{
+          title: { type: 'string' },
+          comments: [{ type: Mongolass.Types.ObjectId }]
+        }]
+      });
+    } catch (e) {
+      error = e;
+    }
+    assert.deepEqual(error.message, 'Schema must have a name');
+  });
+
   it('beforeBulkWrite', function* () {
     let error;
     try {
