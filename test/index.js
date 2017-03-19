@@ -47,7 +47,7 @@ describe('index.js', function () {
     }
     assert.deepEqual(error, {
       name: 'MongoError',
-      message: 'failed to connect to server [localhost:27018] on first connect',
+      message: 'failed to connect to server [localhost:27018] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27018]',
       op: 'find',
       args: [],
       model: 'User',
