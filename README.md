@@ -137,6 +137,10 @@ Post.insertOne({ author: '111111111111111111111111' })
 ```
 **NB:** You can pass `collName` as collection name.
 
+## API
+
+Same as [node-mongodb-native](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html).
+
 ## Mongolass vs Mongoose
 
 知乎：[从零开始写一个 Node.js 的 MongoDB 驱动库](https://zhuanlan.zhihu.com/p/24308524)

@@ -1,3 +1,8 @@
+## 2.4.5/2017-03-20
+
+- add greenkeeper
+- update readme
+
 ## 2.4.4/2017-03-16
 
 - fix: no schema name insert `_id` only
