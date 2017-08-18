@@ -1,3 +1,11 @@
+## 3.0.0/2017-08-18
+
+- breaking: remove `bluebird`, `exec` only return promise now
+- update deps
+- remove GreenKeeper
+- remove yarn.lock
+- use yield -> yield*
+
 ## 2.4.5/2017-03-20
 
 - add greenkeeper

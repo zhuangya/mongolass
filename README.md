@@ -1,7 +1,5 @@
 ## Mongolass
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/mongolass/mongolass.svg)](https://greenkeeper.io/)
-
 [![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
 [![Dependency Status][david-image]][david-url]
