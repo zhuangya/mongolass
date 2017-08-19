@@ -66,7 +66,7 @@ User
   .then(console.log)
   .catch(console.error);
 /*
-{ ($.age: "wrong age") ✖ (type: number)
+{ TypeError: ($.age: "wrong age") ✖ (type: number)
     at Model.insertOne (/Users/nswbmw/Desktop/test/node_modules/mongolass/lib/query.js:105:16)
     at Object.<anonymous> (/Users/nswbmw/Desktop/test/app.js:23:4)
     at Module._compile (module.js:573:30)
@@ -165,7 +165,7 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
     .then(console.log)
     .catch(console.error);
   /*
-  { ($.age: "wrong age") ✖ (type: number)
+  { TypeError: ($.age: "wrong age") ✖ (type: number)
       at Model.insertOne (/Users/nswbmw/Desktop/test/node_modules/mongolass/lib/query.js:105:16)
       at Object.<anonymous> (/Users/nswbmw/Desktop/test/app.js:23:4)
       at Module._compile (module.js:573:30)

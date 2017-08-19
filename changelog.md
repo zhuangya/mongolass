@@ -1,3 +1,8 @@
+## 3.1.2/2017-08-19
+
+- add error type
+- update another-json-schema@2.1.1
+
 ## 3.1.1/2017-08-19
 
 - tweak error stack
