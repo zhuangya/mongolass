@@ -1,3 +1,8 @@
+## 3.1.0/2017-08-19
+
+- tweak error stack
+- update README
+
 ## 3.0.0/2017-08-18
 
 - breaking: remove `bluebird`, `exec` only return promise now

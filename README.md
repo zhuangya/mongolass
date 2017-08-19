@@ -40,7 +40,7 @@ or use optional schema:
 
 ```
 'use strict';
-
+ 
 const Mongolass = require('mongolass');
 const Schema = Mongolass.Schema;
 const mongolass = new Mongolass('mongodb://localhost:27017/test');
@@ -50,7 +50,7 @@ const UserSchema = new Schema('UserSchema', {
   age: { type: 'number' }
 });
 const User = mongolass.model('User', UserSchema);
-
+ 
 /*
 equal to:
 const User = mongolass.model('User', {
@@ -58,18 +58,25 @@ const User = mongolass.model('User', {
   age: { type: 'number' }
 });
 will create inner schema named `UserSchema`.
- */
-
+*/
+ 
 User
   .insertOne({ name: 'nswbmw', age: 'wrong age' })
   .exec()
   .then(console.log)
-  .catch(function (e) {
-    console.error(e);
-    console.error(e.stack);
-  });
+  .catch(console.error);
 /*
-{ [Error: ($.age: "wrong age") ✖ (type: number)]
+{ ($.age: "wrong age") ✖ (type: number)
+    at Model.insertOne (/Users/nswbmw/Desktop/test/node_modules/mongolass/lib/query.js:105:16)
+    at Object.<anonymous> (/Users/nswbmw/Desktop/test/app.js:23:4)
+    at Module._compile (module.js:573:30)
+    at Object.Module._extensions..js (module.js:584:10)
+    at Module.load (module.js:507:32)
+    at tryModuleLoad (module.js:470:12)
+    at Function.Module._load (module.js:462:3)
+    at Function.Module.runMain (module.js:609:10)
+    at startup (bootstrap_node.js:158:16)
+    at bootstrap_node.js:598:3
   validator: 'type',
   actual: 'wrong age',
   expected: { type: 'number' },
@@ -79,35 +86,7 @@ User
   plugin: 'MongolassSchema',
   type: 'beforeInsertOne',
   args: [] }
-Error: ($.age: "wrong age") ✖ (type: number)
-    at throwError (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:215:17)
-    at validate (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:184:7)
-    at validateLeaf (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:175:12)
-    at iterator (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:120:14)
-    at iterator (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:133:29)
-    at _validateObject (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:108:11)
-    at _Schema.validate (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:38:10)
-    at formatCreate (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/schema.js:183:25)
-    at Query.beforeInsertOne (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/schema.js:94:7)
-    at /Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:146:44
-    at next (native)
-    at onFulfilled (/Users/nswbmw/Desktop/mongolass-demo/node_modules/co/index.js:65:19)
-    at /Users/nswbmw/Desktop/mongolass-demo/node_modules/co/index.js:54:5
-    at co (/Users/nswbmw/Desktop/mongolass-demo/node_modules/co/index.js:50:10)
-    at Query.execBeforePlugins (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:142:10)
-    at /Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:67:39
------ Mongolass error stack -----
-Error
-    at Model.insertOne (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:108:16)
-    at Object.<anonymous> (/Users/nswbmw/Desktop/mongolass-demo/app.js:23:4)
-    at Module._compile (module.js:409:26)
-    at Object.Module._extensions..js (module.js:416:10)
-    at Module.load (module.js:343:32)
-    at Function.Module._load (module.js:300:12)
-    at Function.Module.runMain (module.js:441:10)
-    at startup (node.js:139:18)
-    at node.js:974:3
- */
+*/
 ```
 
 ObjectId schema:
@@ -147,46 +126,56 @@ Same as [node-mongodb-native](http://mongodb.github.io/node-mongodb-native/2.2/a
 
 I've been using Mongoose for years, it's great but complex sucks, so i wrote Mongolass. Mongolass is not simply mimicking Mongoose, but rather draw on the advantages of mongoose redesigned the architecture. Mongolass has some exciting features different from Mongoose:
 
-1. Pure Schema. In Mongoose, Schema and Model and Entry are confused.
+1. Pure Schema. In Mongoose, Schema and Model and Entity are confused.
 
   > Schemas not only define the structure of your document and casting of properties, they also define document instance methods, static Model methods, compound indexes and document lifecycle hooks called middleware.
 
-  In Mongolass, Schema is only used for defining the structure of your document and casting of properties, Model used for retrievaling data from mongodb and register plugins, Entry(as result) is plain object. Schema is also optional.
+  In Mongolass, Schema is only used for defining the structure of your document and casting of properties, Model used for retrievaling data from mongodb and register plugins, Entity(as result) is plain object. Schema is also optional.
 
-2. Awesome Plugin System. Mongoose plugin system is not strong enough, eg: `.pre`, `.post`, then async `next()`. In Mongolass, we can register a plugin for Model or global mongolass instance. like:
+2. Awesome plugin system. Mongoose plugin system is not strong enough, eg: `.pre`, `.post`, use async `next()`. In Mongolass, we can register a plugin for Model or global mongolass instance. like:
 
   ```
   User.plugin('xx', {
-    beforeFind: function (...args) {},
-    afterFind: function* (result, ...args) {// or function return Promise
+    beforeFind: function (...args) {},// or function return Promise
+    afterFind: function* (result, ...args) {
       console.log(result, args);
       ...
-    }
+    },
+    // afterFind: async function (result, ...args) {
+    //   console.log(result, args);
+    //   ...
+    // }
   });
-```
+  ```
 
-  Above added two hook function for `User`, when `User.find().xx().exec()` is called, the execution order is as follows:
+  Above added two hook functions for `User`, when `User.find().xx().exec()` is called, the execution order is as follows:
 
   ```
   beforeFind(handle query args) -> retrieve data from mongodb -> afterFind(handle query result)
   ```
 
-  **NOTE**: Different order of calling plugins will output different results. The priority of Model's plugins is greater than global's.
   Mongolass's plugins could be substituted for Mongoose's (document instance methods + static Model methods + plugins).
 
-3. Damn Detailed Error Information. see [usage](https://github.com/mongolass/mongolass#usage).
+3. Detailed error informations. see [usage](https://github.com/mongolass/mongolass#usage).
 
   ```
   User
     .insertOne({ name: 'nswbmw', age: 'wrong age' })
     .exec()
     .then(console.log)
-    .catch(function (e) {
-      console.error(e);
-      console.error(e.stack);
-    });
+    .catch(console.error);
   /*
-  { [Error: ($.age: "wrong age") ✖ (type: number)]
+  { ($.age: "wrong age") ✖ (type: number)
+      at Model.insertOne (/Users/nswbmw/Desktop/test/node_modules/mongolass/lib/query.js:105:16)
+      at Object.<anonymous> (/Users/nswbmw/Desktop/test/app.js:23:4)
+      at Module._compile (module.js:573:30)
+      at Object.Module._extensions..js (module.js:584:10)
+      at Module.load (module.js:507:32)
+      at tryModuleLoad (module.js:470:12)
+      at Function.Module._load (module.js:462:3)
+      at Function.Module.runMain (module.js:609:10)
+      at startup (bootstrap_node.js:158:16)
+      at bootstrap_node.js:598:3
     validator: 'type',
     actual: 'wrong age',
     expected: { type: 'number' },
@@ -196,34 +185,7 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
     plugin: 'MongolassSchema',
     type: 'beforeInsertOne',
     args: [] }
-  Error: ($.age: "wrong age") ✖ (type: number)
-      at throwError (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:215:17)
-      at validate (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:184:7)
-      at validateLeaf (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:175:12)
-      at iterator (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:120:14)
-      at iterator (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:133:29)
-      at _validateObject (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:108:11)
-      at _Schema.validate (/Users/nswbmw/Desktop/mongolass-demo/node_modules/another-json-schema/index.js:38:10)
-      at formatCreate (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/schema.js:183:25)
-      at Query.beforeInsertOne (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/schema.js:94:7)
-      at /Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:146:44
-      at next (native)
-      at onFulfilled (/Users/nswbmw/Desktop/mongolass-demo/node_modules/co/index.js:65:19)
-      at /Users/nswbmw/Desktop/mongolass-demo/node_modules/co/index.js:54:5
-      at co (/Users/nswbmw/Desktop/mongolass-demo/node_modules/co/index.js:50:10)
-      at Query.execBeforePlugins (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:142:10)
-      at /Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:67:39
-  ----- Mongolass error stack -----
-  Error
-      at Model.insertOne (/Users/nswbmw/Desktop/mongolass-demo/node_modules/mongolass/lib/query.js:108:16)
-      at Object.<anonymous> (/Users/nswbmw/Desktop/mongolass-demo/app.js:23:4)
-      at Module._compile (module.js:409:26)
-      at Object.Module._extensions..js (module.js:416:10)
-      at Module.load (module.js:343:32)
-      at Function.Module._load (module.js:300:12)
-      at Function.Module.runMain (module.js:441:10)
-      at startup (node.js:139:18)
-      at node.js:974:3
+  */
   ```
 
   According to the error instance, esay to know `age` expect a number but got a string, from error stack know it's broken on `app.js:23:4` and the operator is `Model.insertOne`.
@@ -276,7 +238,8 @@ User.plugin('addFullname', {
 });
 
 co(function* () {
-  yield User.insert({ firstname: 'san', lastname: 'zhang' }).addCreatedAt('YYYY-MM-DD');// when use yield, .exec() is omissible.
+  // when use yield, .exec() is omissible.
+  yield User.insert({ firstname: 'san', lastname: 'zhang' }).addCreatedAt('YYYY-MM-DD');
   console.log(yield User.findOne().addFullname({ sep: '-' }));
   // { _id: 5850186544c3b82d23a82e45,
   //   firstname: 'san',
