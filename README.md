@@ -83,9 +83,11 @@ User
   path: '$.age',
   schema: 'UserSchema',
   model: 'User',
-  plugin: 'MongolassSchema',
-  type: 'beforeInsertOne',
-  args: [] }
+  op: 'insertOne',
+  args: [ { name: 'nswbmw', age: 'wrong age' } ],
+  pluginName: 'MongolassSchema',
+  pluginOp: 'beforeInsertOne',
+  pluginArgs: [] }
 */
 ```
 
@@ -182,9 +184,11 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
     path: '$.age',
     schema: 'UserSchema',
     model: 'User',
-    plugin: 'MongolassSchema',
-    type: 'beforeInsertOne',
-    args: [] }
+    op: 'insertOne',
+    args: [ { name: 'nswbmw', age: 'wrong age' } ],
+    pluginName: 'MongolassSchema',
+    pluginOp: 'beforeInsertOne',
+    pluginArgs: [] }
   */
   ```
 
