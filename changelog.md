@@ -1,3 +1,7 @@
+## 3.1.1/2017-08-19
+
+- tweak error stack
+
 ## 3.1.0/2017-08-19
 
 - tweak error stack
