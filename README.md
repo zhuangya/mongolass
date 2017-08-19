@@ -10,7 +10,7 @@ Elegant MongoDB driver for Node.js.
 
 ## Installation
 
-```
+```bash
 $ npm i mongolass --save
 ```
 
@@ -18,7 +18,7 @@ $ npm i mongolass --save
 
 Just like mongoose:
 
-```
+```javascript
 'use strict';
 
 const Mongolass = require('mongolass');
@@ -38,7 +38,7 @@ User
 
 or use optional schema:
 
-```
+```javascript
 'use strict';
  
 const Mongolass = require('mongolass');
@@ -91,7 +91,7 @@ User
 
 ObjectId schema:
 
-```
+```javascript
 'use strict';
 
 const Mongolass = require('mongolass');
@@ -134,7 +134,7 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
 
 2. Awesome plugin system. Mongoose plugin system is not strong enough, eg: `.pre`, `.post`, use async `next()`. In Mongolass, we can register a plugin for Model or global mongolass instance. like:
 
-  ```
+  ```javascript
   User.plugin('xx', {
     beforeFind: function (...args) {},// or function return Promise
     afterFind: function* (result, ...args) {
@@ -158,7 +158,7 @@ I've been using Mongoose for years, it's great but complex sucks, so i wrote Mon
 
 3. Detailed error informations. see [usage](https://github.com/mongolass/mongolass#usage).
 
-  ```
+  ```javascript
   User
     .insertOne({ name: 'nswbmw', age: 'wrong age' })
     .exec()
@@ -203,7 +203,7 @@ User.plugin(pluginName, hooks);// register model plugin
 
 example:
 
-```
+```javascript
 const co = require('co');
 const moment = require('moment');
 const Mongolass = require('mongolass');
@@ -259,7 +259,7 @@ co(function* () {
 
 example:
 
-```
+```javascript
 const co = require('co');
 const Mongolass = require('mongolass');
 const mongolass = new Mongolass('mongodb://localhost:27017/test');
@@ -324,7 +324,7 @@ Mongolass has some built-in plugins, only for `find` and `findOne`.
 
 example:
 
-```
+```javascript
 const co = require('co');
 const Mongolass = require('mongolass');
 const mongolass = new Mongolass('mongodb://localhost:27017/test');
@@ -344,7 +344,7 @@ co(function* () {
 
 ## Test
 
-```
+```bash
 $ npm test (coverage 100%)
 ```
 
