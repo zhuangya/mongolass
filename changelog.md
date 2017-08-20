@@ -1,3 +1,7 @@
+## 3.1.4/2017-08-20
+
+- fix test coverage
+
 ## 3.1.3/2017-08-19
 
 - tweak error
