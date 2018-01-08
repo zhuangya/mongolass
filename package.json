@@ -4,7 +4,7 @@
   "description": "Elegant MongoDB driver for Node.js.",
   "main": "lib/index.js",
   "scripts": {
-    "pretest": "eslint .",
+    "pretest": "./node_modules/.bin/eslint .",
     "test": "node ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "keywords": [
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "co-mocha": "^1.2.1",
+    "eslint": "4.15.0",
     "eslint-config-standard": "11.0.0-beta.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-node": "5.2.1",
