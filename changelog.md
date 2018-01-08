@@ -1,3 +1,16 @@
+## 4.0.0/2018-01-03
+
+- [feat] use eslint@standard
+- [feat] upgrade another-json-schema@3
+  - support `default`
+  - support `required`
+- [breaking change] use async/await, **deprecated** generatorFunction(plugin)
+- [breaking change] upgrade mongodb@3
+  - see [https://github.com/mongodb/node-mongodb-native/blob/HEAD/CHANGES_3.0.0.md](https://github.com/mongodb/node-mongodb-native/blob/HEAD/CHANGES_3.0.0.md)
+- [update] tweak codes
+- [update] update tests
+- [update] update README.md
+
 ## 3.1.5/2017-08-29
 
 - fix #27
