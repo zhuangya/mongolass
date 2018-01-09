@@ -7,7 +7,7 @@ const ObjectId = Mongolass.ObjectId
 const mongolass = new Mongolass(MONGODB)
 
 const UserSchema = new Schema('User', {
-  name: { type: 'string' },
+  name: { type: 'string', required: true },
   age: { type: 'number', range: [0, 100] },
   refe: { type: Mongolass.Types.ObjectId },
   posts: [{
@@ -120,7 +120,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',
@@ -158,7 +158,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',
@@ -198,7 +198,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',
@@ -653,7 +653,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',
@@ -697,7 +697,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',
@@ -719,7 +719,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',
@@ -801,7 +801,7 @@ describe('schema.js', function () {
     assert.deepEqual(error, {
       validator: 'type',
       actual: 1,
-      expected: { type: 'string' },
+      expected: { type: 'string', required: true },
       path: '$.name',
       schema: 'User',
       model: 'User',

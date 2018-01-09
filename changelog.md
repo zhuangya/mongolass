@@ -1,4 +1,9 @@
-## 4.0.0/2018-01-03
+## 4.1.0/2018-01-09
+
+- upgrade another-json-schema@3.4.0
+- update operators will not check `default` & `required`
+
+## 4.0.0/2018-01-08
 
 - [feat] use eslint@standard
 - [feat] upgrade another-json-schema@3
