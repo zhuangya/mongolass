@@ -13,7 +13,7 @@ describe('model.js', function () {
   })
 
   afterEach(function * () {
-    yield mongolass.model('User').remove()
+    yield mongolass.model('User').deleteMany()
   })
 
   after(function * () {

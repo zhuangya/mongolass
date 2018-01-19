@@ -17,7 +17,7 @@ describe('Types.js', function () {
   })
 
   afterEach(function * () {
-    yield User.remove()
+    yield User.deleteMany()
   })
 
   after(function * () {

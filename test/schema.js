@@ -40,7 +40,7 @@ describe('schema.js', function () {
   })
 
   afterEach(function * () {
-    yield User.remove()
+    yield User.deleteMany()
   })
 
   after(function * () {
@@ -88,7 +88,7 @@ describe('schema.js', function () {
     assert.deepEqual(user.name, name)
     assert.deepEqual(user.age, 18)
 
-    yield User.remove({ name })
+    yield User.deleteMany({ name })
   })
 
   it('No schema name', function * () {
@@ -229,14 +229,14 @@ describe('schema.js', function () {
     yield User.deleteMany({ refe: '222222222222222222222222' })
 
     let count = yield User.count()
-    assert.deepEqual(count, 2)
+    assert.deepEqual(count, 1)
   })
 
   it('beforeDeleteOne', function * () {
     yield User.deleteOne({ refe: '222222222222222222222222' })
 
     let count = yield User.count()
-    assert.deepEqual(count, 2)
+    assert.deepEqual(count, 1)
   })
 
   it('beforeDistinct', function * () {
@@ -754,19 +754,17 @@ describe('schema.js', function () {
   })
 
   it('beforeRemove', function * () {
-    yield User.remove({ refe: '222222222222222222222222' })
-    yield User.create({
-      name: 'aaa',
-      age: 2,
-      refe: ObjectId('222222222222222222222222'),
-      posts: [{
-        title: 'aaa',
-        comments: [ObjectId('333333333333333333333333')]
-      }]
-    })
+    try {
+      yield User.remove({ refe: '222222222222222222222222' })
 
-    let count = yield User.count()
-    assert.deepEqual(count, 2)
+      let count = yield User.count()
+      assert.deepEqual(count, 1)
+    } catch (e) {
+      assert.deepEqual(e.op, 'remove')
+      assert.deepEqual(typeof e.args[0].refe, 'object')
+      assert.deepEqual(e.args[0].refe.toString(), '222222222222222222222222')
+      assert.ok(e.message.match('Cannot convert undefined or null to object'))
+    }
   })
 
   it('beforeReplaceOne', function * () {
@@ -976,7 +974,7 @@ describe('schema.js', function () {
         name: 'ccc',
         age: 3
       })
-      yield User.remove({ name: 'ccc' })
+      yield User.deleteOne({ name: 'ccc' })
 
       try {
         yield User.update({ name: 'aaa' }, { $setOnInsert: { refe: 1 } })
@@ -1090,26 +1088,6 @@ describe('schema.js', function () {
       } })
       let doc = yield User.findOne({ name: 'aaa' })
       assert.deepEqual(doc.posts[0].comments.length, 4)
-
-      yield User.update({ 'posts.comments': '333333333333333333333333' }, { $pullAll: { 'posts.$.comments': ['333333333333333333333333', '555555555555555555555555', '666666666666666666666666'] } })
-      doc = yield User.findOne({ name: 'aaa' })
-      assert.deepEqual(doc.posts[0].comments.length, 0)
-
-      yield User.update({ name: 'aaa' }, { $push: {
-        'posts.0.comments': { $each: ['333333333333333333333333'] }
-      } })
-    })
-
-    it('$pushAll', function * () {
-      yield User.update({ name: 'aaa' }, { $pushAll: {
-        'posts.0.comments': ['555555555555555555555555', '666666666666666666666666']
-      } })
-      let doc = yield User.findOne({ name: 'aaa' })
-      assert.deepEqual(doc.posts[0].comments.length, 3)
-
-      yield User.update({ 'posts.comments': '333333333333333333333333' }, { $pullAll: { 'posts.$.comments': ['555555555555555555555555', '666666666666666666666666'] } })
-      doc = yield User.findOne({ name: 'aaa' })
-      assert.deepEqual(doc.posts[0].comments.length, 1)
     })
 
     it('$xxx', function * () {
@@ -1121,47 +1099,43 @@ describe('schema.js', function () {
       } })
       doc = yield User.findOne({ name: 'aaa' })
       assert.deepEqual(doc.posts[0].comments.length, 0)
-
-      yield User.update({ name: 'aaa' }, { $pushAll: {
-        'posts.0.comments': ['333333333333333333333333']
-      } })
     })
 
     it('wrong type', function * () {
       let error
-      // try {
-      //   yield User.update({ name: 'aaa' }, null);
-      // } catch (e) {
-      //   error = e;
-      // }
-      // assert.deepEqual(error, {
-      //   name: 'MongoError',
-      //   message: 'document must be a valid JavaScript object',
-      //   driver: true,
-      //   op: 'update',
-      //   args: [ { name: 'aaa' }, null ],
-      //   model: 'User',
-      //   schema: 'User'
-      // });
+      try {
+        yield User.update({ name: 'aaa' }, null)
+      } catch (e) {
+        error = e
+      }
+      assert.deepEqual(error, {
+        name: 'MongoError',
+        message: 'document must be a valid JavaScript object',
+        driver: true,
+        op: 'update',
+        args: [ { name: 'aaa' }, null ],
+        model: 'User',
+        schema: 'User'
+      })
 
-      // try {
-      //   yield User.update({ name: 'aaa' }, { age: -1 });
-      // } catch (e) {
-      //   error = e;
-      // }
-      // assert.deepEqual(error, {
-      //   validator: 'range',
-      //   actual: -1,
-      //   expected: { type: 'number', range: [ 0, 100 ] },
-      //   path: '$.age',
-      //   schema: 'User',
-      //   model: 'User',
-      //   op: 'update',
-      //   args: [ { name: 'aaa' }, { age: -1 } ],
-      //   pluginName: 'MongolassSchema',
-      //   pluginOp: 'beforeUpdate',
-      //   pluginArgs: []
-      // });
+      try {
+        yield User.update({ name: 'aaa' }, { age: -1 })
+      } catch (e) {
+        error = e
+      }
+      assert.deepEqual(error, {
+        validator: 'range',
+        actual: -1,
+        expected: { type: 'number', range: [ 0, 100 ] },
+        path: '$.age',
+        schema: 'User',
+        model: 'User',
+        op: 'update',
+        args: [ { name: 'aaa' }, { age: -1 } ],
+        pluginName: 'MongolassSchema',
+        pluginOp: 'beforeUpdate',
+        pluginArgs: []
+      })
 
       try {
         yield User.update({ name: 'aaa' }, { $set: { age: -1 } })

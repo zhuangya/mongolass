@@ -15,7 +15,7 @@ describe('index.js', function () {
   })
 
   afterEach(function * () {
-    yield mongolass.model('User').remove()
+    yield mongolass.model('User').deleteMany()
   })
 
   after(function * () {
@@ -201,12 +201,19 @@ describe('index.js', function () {
     assert.deepEqual(typeof usernames[1], 'string')
   })
 
-  it('.createCollection & .listCollections', function * () {
+  it('.createCollection & dropCollection & .listCollections', function * () {
     yield mongolass.createCollection('test1')
     yield mongolass.createCollection('test2')
     let colls = yield mongolass.listCollections()
     colls = _.map(colls, 'name')
     assert.ok(_.includes(colls, 'test1'))
     assert.ok(_.includes(colls, 'test2'))
+
+    yield mongolass.dropCollection('test1')
+    yield mongolass.dropCollection('test2')
+    colls = yield mongolass.listCollections()
+    colls = _.map(colls, 'name')
+    assert.ok(!_.includes(colls, 'test1'))
+    assert.ok(!_.includes(colls, 'test2'))
   })
 })
