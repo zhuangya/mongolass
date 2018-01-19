@@ -1,3 +1,7 @@
+## 4.1.1/2018-01-19
+
+- fix: beforeDeleteOne & beforeDeleteMany
+
 ## 4.1.0/2018-01-09
 
 - upgrade another-json-schema@3.4.0
