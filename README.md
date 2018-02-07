@@ -112,7 +112,7 @@ Post.insertOne({ author: '111111111111111111111111' })
 
 ## API
 
-Same as [node-mongodb-native](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html).
+Same as [node-mongodb-native](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html).
 
 ## Mongolass vs Mongoose
 
