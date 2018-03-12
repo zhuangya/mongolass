@@ -30,7 +30,7 @@
     "debug": "2.2.0",
     "inflected": "1.1.7",
     "lodash": "4.15.0",
-    "mongodb": "2.2.9",
+    "mongodb": "2.2.13",
     "mongolass-plugin-populate": "*",
     "validator": "5.6.0"
   },
